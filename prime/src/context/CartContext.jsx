@@ -26,13 +26,19 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    // ── App khulne pe DB ton cart laao ──
-    useEffect(() => {
+    // ── DB te save karo ──
+    const syncCartToDB = useCallback(async (items) => {
         const email = getEmail();
-        if (email) fetchCart(email);
+        if (!email) return;
+        try {
+            // ✅ FIX 4: Sahi endpoint — POST /api/cart/sync
+            await axios.post(`${BASE_URL}/api/cart/sync`, { email, items });
+        } catch (err) {
+            console.error('Cart sync error:', err);
+        }
     }, []);
 
-    const fetchCart = async (email) => {
+    const fetchCart = useCallback(async (email) => {
         try {
             // ✅ FIX 3: Sahi endpoint — GET /api/cart?email=...
             const res = await axios.get(`${BASE_URL}/api/cart?email=${email}`);
@@ -44,19 +50,13 @@ export const CartProvider = ({ children }) => {
             console.error('Cart fetch error:', err);
             // error aaye te v local cart wahi reh jaayega
         }
-    };
+    }, []);
 
-    // ── DB te save karo ──
-    const syncCartToDB = async (items) => {
+    // ── App khulne pe DB ton cart laao ──
+    useEffect(() => {
         const email = getEmail();
-        if (!email) return;
-        try {
-            // ✅ FIX 4: Sahi endpoint — POST /api/cart/sync
-            await axios.post(`${BASE_URL}/api/cart/sync`, { email, items });
-        } catch (err) {
-            console.error('Cart sync error:', err);
-        }
-    };
+        if (email) fetchCart(email);
+    }, [fetchCart]);
 
     // ✅ MAIN FUNCTION: addToCart (Homepage ede nu call karda)
     const addToCart = useCallback((product) => {
@@ -88,7 +88,7 @@ export const CartProvider = ({ children }) => {
             return updated;
         });
         setCartOpen(true); // ✅ Sirf logged-in user layi sidebar kholo
-    }, []);
+    }, [syncCartToDB]);
 
     // ── Qty update ──
     const updateQty = useCallback((id, qty) => {
@@ -98,7 +98,7 @@ export const CartProvider = ({ children }) => {
             syncCartToDB(updated);
             return updated;
         });
-    }, []);
+    }, [syncCartToDB]);
 
     // ── Item hatao ──
     const removeItem = useCallback((id) => {
@@ -107,14 +107,14 @@ export const CartProvider = ({ children }) => {
             syncCartToDB(updated);
             return updated;
         });
-    }, []);
+    }, [syncCartToDB]);
 
     // ── Cart khaali karo (order baad) ──
     const clearCart = useCallback(() => {
         setCartItems([]);
         localStorage.removeItem('cartItems');
         syncCartToDB([]);
-    }, []);
+    }, [syncCartToDB]);
 
     const totalItems = cartItems.reduce((sum, i) => sum + i.qty, 0);
 

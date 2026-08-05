@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Heart, Eye, Star, X, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { Heart, Eye, Star, X, Minus, Plus } from 'lucide-react';
 import { WishlistContext } from '../context/WishlistContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
