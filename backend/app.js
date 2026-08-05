@@ -53,12 +53,12 @@ app.post('/upload/image', (req, res) => {
       return res.status(500).json({ success: false, message: 'Save failed' });
     }
     // Return absolute URL (frontend will use it directly)
-    const imageUrl = `http://localhost:5555/images/${fileName}`;
+    const imageUrl = `${req.protocol}://${req.get('host')}/images/${fileName}`;
     res.json({ success: true, url: imageUrl });
   });
 });
 
-const port = 5555;
+const PORT = process.env.PORT || 5555;
 
 // Database Connection
 dbConnectDB();
@@ -84,6 +84,6 @@ app.post('/api/validate-voucher', (req, res) => {
 });
 
 // Server Listen
-app.listen(port, () => {
-    console.log(`server is running on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`server is running on port ${PORT}`);
 });
