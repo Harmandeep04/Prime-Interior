@@ -1,0 +1,130 @@
+/* ── Hero Section CSS ── */
+
+.hero-wrapper {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: #fdfaf7;
+    box-sizing: border-box;
+}
+
+.hero-slider {
+    position: relative;
+    width: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.hero-track {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+    width: 100%;
+}
+
+.hero-slide-item {
+    min-width: 100%;
+    height: 550px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.hero-slide-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 0 20px;
+    z-index: 10;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    line-height: 1.15;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.hero-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, transform 0.2s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-btn:hover {
+    background: #111;
+    color: white;
+    transform: scale(1.04);
+}
+
+/* Pagination Dots */
+.hero-dots {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 20;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+    background: white;
+    width: 28px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .hero-wrapper { padding: 12px; }
+    .hero-slide-item { height: 400px; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-desc { font-size: 1rem; }
+    .hero-btn { padding: 12px 26px; font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-wrapper { padding: 10px; }
+    .hero-slide-item { height: 300px; }
+    .hero-title { font-size: 1.7rem; }
+    .hero-desc { font-size: 0.9rem; margin-bottom: 20px; }
+    .hero-btn { padding: 10px 22px; font-size: 0.85rem; }
+}

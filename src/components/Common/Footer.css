@@ -1,0 +1,78 @@
+* { box-sizing: border-box; }
+
+.footer-main {
+  background-color: #111111;
+  color: white;
+  width: 100%;
+  padding: 80px 5% 30px;
+  flex-shrink: 0;
+}
+
+.footer-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 50px;
+}
+
+.footer-col h3 { font-size: 22px; margin-bottom: 25px; font-weight: 500; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col ul li { margin-bottom: 12px; color: #a0a0a0; cursor: pointer; transition: 0.3s; font-size: 16px; }
+.footer-col ul li:hover { color: white; }
+
+.contact-info { margin-top: 35px; }
+.contact-info .phone { font-size: 22px; margin-bottom: 8px; }
+.contact-info .email { font-size: 16px; color: #a0a0a0; margin-bottom: 6px; }
+
+.footer-newsletter h2 {
+  font-size: 36px; line-height: 1.2; margin-bottom: 30px;
+  font-weight: 500; max-width: 500px;
+}
+
+.btn-subscribe {
+  background: white; color: black; border: none;
+  padding: 12px 24px; border-radius: 30px; font-weight: 600;
+  cursor: pointer; width: 100%; margin-top: 5px;
+  font-size: 15px; transition: 0.3s;
+}
+.btn-subscribe:hover { background: #eee; }
+
+.social-links { display: flex; gap: 25px; margin-top: 20px; flex-wrap: wrap; }
+.social-links a { color: white; font-size: 22px; transition: 0.3s; }
+.social-links a:hover { color: #aaa; }
+
+.footer-brand-bottom {
+  border-top: 1px solid #222; margin-top: 50px;
+  padding-top: 20px; text-align: center; color: #666; font-size: 14px;
+}
+
+/* Review Form */
+.review-form { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.review-form input,
+.review-form select,
+.review-form textarea {
+  background: #1a1a1a; border: 1px solid #333; color: white;
+  padding: 12px 14px; border-radius: 6px; font-size: 15px; outline: none; width: 100%;
+}
+.review-form select option { background: #1a1a1a; }
+.review-form textarea { resize: none; }
+.review-form input::placeholder,
+.review-form textarea::placeholder { color: #666; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .footer-container { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-newsletter { grid-column: 1 / span 2; }
+  .footer-newsletter h2 { font-size: 28px; }
+}
+
+@media (max-width: 600px) {
+  .footer-main { padding: 50px 5% 30px; }
+  .footer-container { grid-template-columns: 1fr; gap: 30px; }
+  .footer-newsletter { grid-column: auto; }
+  .footer-newsletter h2 { font-size: 24px; }
+  .contact-info .phone { font-size: 18px; }
+  .footer-col h3 { font-size: 18px; }
+  .social-links { gap: 18px; }
+}

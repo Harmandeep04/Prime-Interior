@@ -1,39 +1,219 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
+import "../css/Signup.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-export default function Signup() {
-  const [role, setRole] = useState("user");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+export function Signup() {
   const navigate = useNavigate();
 
-  const handleSignup = () => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const exists = users.find((u) => u.email === email);
-    if (exists) return alert("User already exists");
+  const [data, setData] = useState({
+    firstName: "",
+    lastName:  "",
+    email:     "",
+    password:  "",
+    role:      "user",
+  });
 
-    const newUser = { name, email, password, role };
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-    alert("Signup successful! Please login.");
-    navigate("/login");
+  const [enteredOtp,  setEnteredOtp]  = useState("");
+  const [otpSent,     setOtpSent]     = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [otpLoading,  setOtpLoading]  = useState(false);
+  const [emailLocked, setEmailLocked] = useState(false);
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const isValidEmailFormat = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  // ✅ OTP Send
+  const handleSendOtp = async () => {
+    if (!isValidEmailFormat(data.email)) {
+      toast.error("Please enter a valid email address ❌");
+      return;
+    }
+    setOtpLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/user/send-signup-otp",
+        { email: data.email }
+      );
+      if (response.data.success) {
+        setOtpSent(true);
+        setEmailLocked(true);
+        toast.success("OTP sent to your email! Check inbox 📧");
+      } else {
+        toast.error(response.data.message || "Failed to send OTP ❌");
+      }
+    } catch (error) {
+      toast.error("Failed to send OTP. Check your email ❌");
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  // ✅ OTP Verify
+  const handleVerifyOtp = async () => {
+    if (!enteredOtp) {
+      toast.error("Please enter the OTP ❌");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/user/verify-signup-otp",
+        { email: data.email, otp: enteredOtp }
+      );
+      if (response.data.success) {
+        setOtpVerified(true);
+        toast.success("Email verified successfully! ✅");
+      } else {
+        toast.error(response.data.message || "Invalid OTP ❌");
+      }
+    } catch (error) {
+      toast.error("OTP verification failed ❌");
+    }
+  };
+
+  // ✅ Final Signup
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!otpVerified) {
+      toast.warning("Please verify your email first! 📧");
+      return;
+    }
+
+    const submitData = { ...data, role: "user" };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/user/signup",
+        submitData
+      );
+      const result = response.data;
+
+      if (result.success === false) {
+        toast.warning(result.message || "Signup failed ⚠️");
+        return;
+      }
+
+      toast.success(result.message || "Account Created! Please login 🎉");
+      setData({ firstName: "", lastName: "", email: "", password: "", role: "user" });
+      setTimeout(() => navigate("/login"), 1000);
+
+    } catch (error) {
+      console.error("Signup Error:", error);
+      toast.error("Signup failed. Please try again ❌");
+    }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Create Account</h2>
-        <div className="role-toggle">
-          <button className={role === "user" ? "active" : ""} onClick={() => setRole("user")}>User</button>
-          <button className={role === "designer" ? "active" : ""} onClick={() => setRole("designer")}>Designer</button>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>CREATE ACCOUNT</h2>
+
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          value={data.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={data.lastName}
+          onChange={handleChange}
+          required
+        />
+
+        {/* ✅ Email + Send OTP */}
+        <div className="email-otp-wrapper">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={data.email}
+            onChange={handleChange}
+            required
+            disabled={emailLocked}
+            style={{
+              borderColor:     otpVerified ? "#22c55e" : "",
+              backgroundColor: emailLocked  ? "#f9f9f9" : "",
+            }}
+          />
+          {!otpVerified && (
+            <button
+              type="button"
+              className="send-otp-btn"
+              onClick={handleSendOtp}
+              disabled={otpLoading || otpSent}
+            >
+              {otpLoading ? "Sending..." : otpSent ? "OTP Sent ✅" : "Send OTP"}
+            </button>
+          )}
+          {otpVerified && (
+            <span className="verified-badge">✅ Verified</span>
+          )}
         </div>
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button onClick={handleSignup}>Sign Up</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
-      </div>
+
+        {/* ✅ OTP Input */}
+        {otpSent && !otpVerified && (
+          <div className="otp-verify-wrapper">
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={enteredOtp}
+              onChange={(e) => setEnteredOtp(e.target.value)}
+              maxLength={6}
+              style={{ letterSpacing: "4px", textAlign: "center" }}
+            />
+            <button
+              type="button"
+              className="verify-otp-btn"
+              onClick={handleVerifyOtp}
+            >
+              Verify OTP
+            </button>
+          </div>
+        )}
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={data.password}
+          onChange={handleChange}
+          required
+        />
+
+        <button
+          type="submit"
+          className="signup-btn"
+          disabled={!otpVerified}
+          style={{
+            opacity: otpVerified ? 1 : 0.5,
+            cursor:  otpVerified ? "pointer" : "not-allowed",
+          }}
+        >
+          SIGN UP
+        </button>
+
+        <p className="login-link">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            style={{ cursor: "pointer", fontWeight: "bold" }}
+          >
+            Login
+          </span>
+        </p>
+      </form>
     </div>
   );
 }
