@@ -49,7 +49,9 @@ const SearchModal = ({ isOpen, onClose }) => {
 
     const handleKeyword = (kw) => setQuery(kw);
 
-    const handleClose = () => { onClose(); };
+    const handleClose = useCallback(() => { 
+    onClose(); 
+}, [onClose]);
 
     // close on Escape
     useEffect(() => {
