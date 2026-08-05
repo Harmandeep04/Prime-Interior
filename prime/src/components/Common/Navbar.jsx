@@ -17,7 +17,7 @@ export const Navbar = () => {
     const wishlistCount  = wishlistCtx?.wishlistItems?.length || 0;
 
     // ── Cart ──
-    const { totalItems, cartOpen, setCartOpen } = useCart();
+    const { totalItems, setCartOpen } = useCart();
 
     const [user,         setUser]         = useState(null);
     const [menuOpen,     setMenuOpen]     = useState(false);

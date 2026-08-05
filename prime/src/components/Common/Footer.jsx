@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaFacebookF, FaInstagram, FaRegPaperPlane, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaRegPaperPlane, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter, FaPinterest } from 'react-icons/fa6';
 import axios from 'axios';
 import { toast } from 'react-toastify';
