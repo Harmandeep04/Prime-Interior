@@ -3,16 +3,16 @@ import { X, Search, ArrowUpRight } from 'lucide-react';
 import '../pages/css/SearchModal.css';
 
 const allProducts = [
-    { id: 1,  name: "Ergonomic Chair Pro",         price: 79.99,  img: "/images/product-chair(1.1).jpg", category: "Chairs"     },
-    { id: 2,  name: "Open Box - Adjustable Stand",  price: 79.99,  img: "/images/product-2.1.jpg",        category: "Stands"     },
-    { id: 3,  name: "Laptop Stand",                 price: 89.99,  img: "/images/product-3.2.jpg",        category: "Stands"     },
-    { id: 4,  name: "Double Standing Desk",         price: 69.99,  img: "/images/product-4.2.jpg",        category: "Desks"      },
+    { id: 1,  name: "Ergonomic Chair Pro",         price: 79.99,  img: "/images/product-chair(1.1).jpg", category: "Chairs"    },
+    { id: 2,  name: "Open Box - Adjustable Stand",  price: 79.99,  img: "/images/product-2.1.jpg",        category: "Stands"    },
+    { id: 3,  name: "Laptop Stand",                 price: 89.99,  img: "/images/product-3.2.jpg",        category: "Stands"    },
+    { id: 4,  name: "Double Standing Desk",         price: 69.99,  img: "/images/product-4.2.jpg",        category: "Desks"     },
     { id: 5,  name: "Wireless Charging Dock",       price: 89.99,  img: "/images/product-5.2.jpg",        category: "Accessories"},
-    { id: 6,  name: "Ergonomic Headrest",           price: 79.99,  img: "/images/product-6.2.jpg",        category: "Chairs"     },
+    { id: 6,  name: "Ergonomic Headrest",           price: 79.99,  img: "/images/product-6.2.jpg",        category: "Chairs"    },
     { id: 7,  name: "Hybrid Laptop Sleeve",         price: 79.99,  img: "/images/product-7.2.jpg",        category: "Accessories"},
     { id: 8,  name: "Wireless Charging Tray",       price: 69.99,  img: "/images/product-8.2.jpg",        category: "Accessories"},
-    { id: 9,  name: "Softside Chair",               price: 79.99,  img: "/images/product-10.2.jpg",       category: "Chairs"     },
-    { id: 10, name: "Duo Standing Desk",            price: 69.99,  img: "/images/product-9.1.jpg",        category: "Desks"      },
+    { id: 9,  name: "Softside Chair",               price: 79.99,  img: "/images/product-10.2.jpg",       category: "Chairs"    },
+    { id: 10, name: "Duo Standing Desk",            price: 69.99,  img: "/images/product-9.1.jpg",        category: "Desks"     },
 ];
 
 const featuredKeywords = ["Chair", "Desk", "Laptop Stand", "Wireless", "Ergonomic", "Accessories"];
@@ -56,7 +56,7 @@ const SearchModal = ({ isOpen, onClose }) => {
         const handler = (e) => { if (e.key === 'Escape') handleClose(); };
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
-    }, []);// eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [handleClose]);
 
     if (!isOpen) return null;
 
@@ -114,9 +114,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                         <p className="search-section-title">{sectionLabel}</p>
                         {!query && (
                             <a href="/products" className="search-view-all" onClick={handleClose}>
-                                
                                 View all <ArrowUpRight size={14} />
-                                {/* eslint-disable-next-line react-hooks/exhaustive-deps */}
                             </a>
                         )}
                     </div>
