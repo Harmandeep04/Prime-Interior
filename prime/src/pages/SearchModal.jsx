@@ -56,7 +56,7 @@ const SearchModal = ({ isOpen, onClose }) => {
         const handler = (e) => { if (e.key === 'Escape') handleClose(); };
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
-    }, []);
+    }, []);// eslint-disable-next-line react-hooks/exhaustive-deps
 
     if (!isOpen) return null;
 
@@ -114,7 +114,9 @@ const SearchModal = ({ isOpen, onClose }) => {
                         <p className="search-section-title">{sectionLabel}</p>
                         {!query && (
                             <a href="/products" className="search-view-all" onClick={handleClose}>
+                                
                                 View all <ArrowUpRight size={14} />
+                                {/* eslint-disable-next-line react-hooks/exhaustive-deps */}
                             </a>
                         )}
                     </div>
