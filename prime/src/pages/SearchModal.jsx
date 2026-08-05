@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X, Search, ArrowUpRight } from 'lucide-react';
 import '../pages/css/SearchModal.css';
 
