@@ -6,7 +6,7 @@ import cartRouter from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';  
 import cors from 'cors';
 import dotenv from "dotenv";
-import wishlistRouter from './routes/wishlistroutes.js';
+import wishlistRouter from './routes/wishlistRoutes.js';
 import consultationRoutes from './routes/consultationRoutes.js'; 
 import path from 'path';
 import { fileURLToPath } from 'url';
