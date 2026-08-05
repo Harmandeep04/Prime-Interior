@@ -1,5 +1,5 @@
 import express from 'express';
-import dbConnectDB from './connect/dbconnect.js';
+import dbConnectDB from './connect/dbConnect.js';
 import fileUpload from 'express-fileupload';
 import userRouter from './routes/userRouter.js';
 import cartRouter from './routes/cartRoutes.js';
