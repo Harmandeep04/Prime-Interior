@@ -74,7 +74,7 @@ const ProfileDetails = ({ setActiveTab }) => {
     }
   };
 
-  // ✅ UPDATED — stays in the SAME app, no separate-port redirect
+  // ✅ stays in the SAME app, no separate-port redirect
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('userEmail');
@@ -86,7 +86,7 @@ const ProfileDetails = ({ setActiveTab }) => {
     navigate('/login', { replace: true });
   };
 
-  // ✅ NEW — the ONLY way to change the admin password:
+  // ✅ the ONLY way to change the admin password:
   // redirect into the Forgot Password (OTP) flow. No inline password
   // fields exist anywhere in the admin panel on purpose.
   const handleResetPasswordRedirect = () => {
@@ -106,7 +106,7 @@ const ProfileDetails = ({ setActiveTab }) => {
       <div className="admin-card">
         <div className="admin-card-header">
           <h3>Administrative Profile Details</h3>
-          {/* <button
+          <button
             className="btn-danger-icon"
             style={{
               backgroundColor: 'var(--danger-bg)',
@@ -121,7 +121,7 @@ const ProfileDetails = ({ setActiveTab }) => {
             title="Logout Session"
           >
             <LogOut size={16} /> Logout
-          </button> */}
+          </button>
         </div>
         <form onSubmit={handleUpdateProfile} className="admin-modal-form" style={{ padding: 0 }}>
           <div className="form-group">
@@ -187,7 +187,7 @@ const ProfileDetails = ({ setActiveTab }) => {
             </button>
           </div>
 
-          {/* ✅ NEW — Reset Password: ONLY path to change the password
+          {/* ✅ Reset Password: ONLY path to change the password */}
           <div style={{ marginTop: '12px' }}>
             <button
               type="button"
@@ -203,7 +203,7 @@ const ProfileDetails = ({ setActiveTab }) => {
             >
               <Key size={16} style={{ marginRight: '8px' }} /> Reset Password
             </button>
-          </div> */}
+          </div>
 
           <div style={{ marginTop: '12px' }}>
             <button
