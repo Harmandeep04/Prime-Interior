@@ -23,8 +23,8 @@ const AdminSidebar = ({ activeTab, setActiveTab, mobileOpen, setMobileOpen }) =>
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = 'http://localhost:3001/login';
-  };
+    window.location.href = 'https://prime-interior-eu2b.vercel.app/login';
+};
 
   const handleNav = (id) => {
     setActiveTab(id);

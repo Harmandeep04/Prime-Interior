@@ -16,9 +16,9 @@ const AdminPanel = () => {
   useEffect(() => {
     const email = (localStorage.getItem('userEmail') || '').trim().toLowerCase();
     if (!email || email !== 'primeinterior101@gmail.com') {
-      window.location.href = 'http://localhost:3001/login';
+      window.location.href = 'https://prime-interior-eu2b.vercel.app/login';
     }
-  }, []);
+}, []);
 
   const handleSetActiveTab = (tab) => {
     setActiveTab(tab);

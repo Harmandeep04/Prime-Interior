@@ -231,7 +231,7 @@ export const sendCancelEmail = async (email, order) => {
                 <p style="color:#555; font-size:14px; margin-bottom:16px;">
                     Changed your mind? Browse our collection and place a new order anytime.
                 </p>
-               <a href="http://localhost:3001/products"
+               <a href="https://prime-interior-eu2b.vercel.app/products"
                    style="display:inline-block; background:#111; color:#fff; padding:12px 32px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:1px;">
                     Shop Again ↗
                 </a>
