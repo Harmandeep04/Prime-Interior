@@ -33,19 +33,19 @@ function Login() {
             const lastName  = userData?.lastName  || userData?.data?.lastName  || "";
 
             if (userRole === "admin" && userEmail === "primeinterior101@gmail.com") {
-                // ✅ Authorized Admin
-                toast.success("Welcome Admin! Redirecting to Admin Panel... 🔐");
-                localStorage.setItem("adminLoggedIn", "true");
-                localStorage.setItem("userRole",      userRole);
-                localStorage.setItem("userEmail",     userEmail);
-                window.dispatchEvent(new Event("storage"));
-
-                const authData = encodeURIComponent(JSON.stringify({
+                // ✅ Authorized Admin — normal user wangar homepage te jao,
+                // Navbar "Admin Panel" button dikhayega email match hon te
+                localStorage.setItem("user", JSON.stringify({
                     email: userEmail, role: userRole, firstName, lastName,
                 }));
-                setTimeout(() => {
-                   window.location.replace(`https://prime-interior-admin.vercel.app?auth=${authData}`);
-                }, 800);
+                localStorage.setItem("userEmail", userEmail);
+                localStorage.setItem("userRole",  userRole);
+                localStorage.setItem("firstName", firstName);
+                localStorage.setItem("lastName",  lastName);
+                window.dispatchEvent(new Event("storage"));
+
+                toast.success("Welcome Back, Admin! 👑");
+                setTimeout(() => navigate("/", { replace: true }), 800);
 
             } else if (userRole === "admin") {
                 // ✅ Koi hor admin role wala — access nahi
