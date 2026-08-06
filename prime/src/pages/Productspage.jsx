@@ -208,7 +208,7 @@ export default function ProductsPage() {
 
   // ✅ Backend se products fetch
   useEffect(() => {
-    axios.get("http://localhost:5555/user/all-products")
+    axios.get("https://prime-interior-backend.onrender.com/user/all-products")
       .then(res => {
         if (res.data.success) {
           const normalized = res.data.body.map(p => ({

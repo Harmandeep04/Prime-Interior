@@ -38,7 +38,7 @@ export function Signup() {
     setOtpLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5555/user/send-signup-otp",
+        "https://prime-interior-backend.onrender.com/user/send-signup-otp",
         { email: data.email }
       );
       if (response.data.success) {
@@ -63,7 +63,7 @@ export function Signup() {
     }
     try {
       const response = await axios.post(
-        "http://localhost:5555/user/verify-signup-otp",
+        "https://prime-interior-backend.onrender.com/user/verify-signup-otp",
         { email: data.email, otp: enteredOtp }
       );
       if (response.data.success) {
@@ -90,7 +90,7 @@ export function Signup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5555/user/signup",
+        "https://prime-interior-backend.onrender.com/user/signup",
         submitData
       );
       const result = response.data;

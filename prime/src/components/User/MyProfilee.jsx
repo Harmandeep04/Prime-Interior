@@ -47,7 +47,7 @@ const MyProfilee = () => {
             const userId = user?._id || user?.id; 
 
             // Tuhada Router setup `/user/updateuser` nu mapped hai
-            const response = await axios.put("http://localhost:5555/user/updateuser", {
+            const response = await axios.put("https://prime-interior-backend.onrender.com/user/updateuser", {
                 userId,
                 firstName: formData.firstName,
                 lastName: formData.lastName,

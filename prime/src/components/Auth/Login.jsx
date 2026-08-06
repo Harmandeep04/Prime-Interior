@@ -17,7 +17,7 @@ function Login() {
         localStorage.clear();
 
         try {
-            const response = await axios.post("http://localhost:5555/user/login", data);
+            const response = await axios.post("https://prime-interior-backend.onrender.com/user/login", data);
             const result   = response.data;
 
             if (result.status === 400 || !result.body) {

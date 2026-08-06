@@ -21,7 +21,7 @@ const ForgotPassword = () => {
         setLoading(true);
         try {
             const response = await axios.post(
-                "http://localhost:5555/user/send-otp",
+                "https://prime-interior-backend.onrender.com/user/send-otp",
                 { email }
             );
             if (response.data.success) {
@@ -63,7 +63,7 @@ const ForgotPassword = () => {
         try {
             setLoading(true);
 
-            const response = await axios.post("http://localhost:5555/user/reset-password", {
+            const response = await axios.post("https://prime-interior-backend.onrender.com/user/reset-password", {
                 email: email,
                 password: newPassword,
             });

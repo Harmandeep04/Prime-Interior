@@ -10,7 +10,7 @@ const About = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5555/user/get-reviews')
+        axios.get('https://prime-interior-backend.onrender.com/user/get-reviews')
             .then(res => { if (res.data.success) setReviews(res.data.body); })
             .catch(err => console.error('Reviews fetch error:', err));
     }, []);

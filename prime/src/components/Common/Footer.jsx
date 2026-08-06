@@ -22,7 +22,7 @@ export const Footer = () => {
 
     try {
       // 1. Postman vangu data bhej rhe aa
-      const response = await axios.post("http://localhost:5555/user/add-review", review, {
+      const response = await axios.post("https://prime-interior-backend.onrender.com/user/add-review", review, {
         headers: {
           'Content-Type': 'application/json'
         }

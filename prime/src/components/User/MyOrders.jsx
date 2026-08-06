@@ -5,7 +5,7 @@ import { Package, ChevronDown, ChevronUp, ShoppingBag, ArrowLeft, Clock, CheckCi
 import { toast } from 'react-toastify';
 import '../css/MyOrders.css';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 const STATUS_CONFIG = {
     pending:   { label: 'Pending',   color: '#f59e0b', bg: '#fffbeb', Icon: Clock       },

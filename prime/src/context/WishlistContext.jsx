@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5555';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://prime-interior-backend.onrender.com';
 
 export const WishlistContext = createContext(null);
 

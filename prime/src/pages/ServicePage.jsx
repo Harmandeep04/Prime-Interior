@@ -12,7 +12,7 @@ import './css/ServicePage.css';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart }     from '../context/CartContext';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 // ─────────────────────────────────────────────
 // Quick View Modal

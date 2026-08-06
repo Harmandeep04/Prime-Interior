@@ -26,11 +26,11 @@ export const Shop = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                let url = "http://localhost:5555/user/all-products";
+                let url = "https://prime-interior-backend.onrender.com/user/all-products";
                 
                 // Agar URL vich search term hai, taan search API call karo
                 if (searchQuery) {
-                    url = `http://localhost:5555/user/search?q=${searchQuery}`;
+                    url = `https://prime-interior-backend.onrender.com/user/search?q=${searchQuery}`;
                 }
 
                 const response = await axios.get(url);

@@ -4,7 +4,7 @@ import './css/Contact.css';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 const Contact = () => {
     const [form, setForm]       = useState({ name: '', email: '', phone: '', message: '' });

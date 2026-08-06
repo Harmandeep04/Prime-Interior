@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 const COUNTRIES = ['India', 'United States', 'United Kingdom', 'Canada', 'Australia'];
 const STATES    = ['Punjab', 'Haryana', 'Maharashtra', 'Delhi', 'Karnataka'];
-const BASE_URL  = 'http://localhost:5555';
+const BASE_URL  = 'https://prime-interior-backend.onrender.com';
 
 const Checkout = () => {
     const navigate = useNavigate();
