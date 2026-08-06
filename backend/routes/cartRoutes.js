@@ -3,7 +3,7 @@ import Cart from '../model/Cart.js';
 const router = express.Router();
 
 // ── API 1: GET USER CART ──
-// ਹੁਣ ਇਹਦਾ ਅਸਲੀ URL ਬਣੇਗਾ: GET http://localhost:5555/api/cart
+// ਹੁਣ ਇਹਦਾ ਅਸਲੀ URL ਬਣੇਗਾ: GET https://prime-interior-backend.onrender.com/api/cart
 router.get('/', async (req, res) => { 
     const { email } = req.query;
     if (!email) return res.status(400).json({ success: false, message: "Email required" });
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // ── API 2: ADD / SYNC CART ITEMS ──
-// ਹੁਣ ਇਹਦਾ ਅਸਲੀ URL ਬਣੇਗਾ: POST http://localhost:5555/api/cart/sync
+// ਹੁਣ ਇਹਦਾ ਅਸਲੀ URL ਬਣੇਗਾ: POST https://prime-interior-backend.onrender.com/api/cart/sync
 router.post('/sync', async (req, res) => { 
     const { email, items } = req.body;
     try {

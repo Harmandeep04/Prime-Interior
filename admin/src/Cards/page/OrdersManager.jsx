@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Trash2, AlertTriangle } from 'lucide-react';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 const STATUS_OPTIONS = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 

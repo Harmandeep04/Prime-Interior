@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 const UsersManager = () => {
   const [users, setUsers] = useState([]);

@@ -3,7 +3,7 @@ import { Plus, Trash2, Check, X, Pencil, Upload } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const BASE_URL = process.env.REACT_APP_API || 'http://localhost:5555';
+const BASE_URL = process.env.REACT_APP_API || 'https://prime-interior-backend.onrender.com';
 
 const HOMEPAGE_OPTIONS = [
   { label: '— Not on Homepage —', value: 'none'      },

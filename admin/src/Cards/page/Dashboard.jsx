@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DollarSign, Users, ShoppingBag, ArrowUpRight, Activity, X, TrendingUp } from 'lucide-react';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 // ─── Helper: total extract karo order to (summary.total support) ─────────────
 const getOrderTotal = (order) =>

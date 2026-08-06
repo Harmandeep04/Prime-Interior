@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { User, Mail, ShieldAlert, LogOut, Key } from 'lucide-react';
 
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'https://prime-interior-backend.onrender.com';
 
 const ProfileDetails = ({ setActiveTab }) => {
   const navigate = useNavigate();
