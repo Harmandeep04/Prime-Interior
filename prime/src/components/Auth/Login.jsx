@@ -44,7 +44,7 @@ function Login() {
                     email: userEmail, role: userRole, firstName, lastName,
                 }));
                 setTimeout(() => {
-                    window.location.replace(`http://localhost:3000?auth=${authData}`);
+                   window.location.replace(`https://prime-interior-admin.vercel.app?auth=${authData}`);
                 }, 800);
 
             } else if (userRole === "admin") {

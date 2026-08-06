@@ -34,7 +34,8 @@ const ProtectedAdmin = () => {
     } else {
       setStatus('denied');
       setTimeout(() => {
-        window.location.href = 'http://localhost:3001/login';
+        // ✅ Live main site (prime) de login page te redirect karo
+        window.location.href = 'https://prime-interior-eu2b.vercel.app/login';
       }, 1000);
     }
   }, []);
