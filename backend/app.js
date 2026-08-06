@@ -11,6 +11,7 @@ import consultationRoutes from './routes/consultationRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import cloudinary from './config/cloudinary.js';
 
 dotenv.config();
 
@@ -24,15 +25,15 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(cors());
 
-// ✅ Serve images from backend/images folder
+// ✅ Serve images from backend/images folder (purane local images layi, migration tak)
 const imagesDir = path.join(__dirname, 'images');
 if (!fs.existsSync(imagesDir)) {
   fs.mkdirSync(imagesDir, { recursive: true });
 }
 app.use('/images', express.static(imagesDir));
 
-// ✅ Upload endpoint – saves to backend/images
-app.post('/upload/image', (req, res) => {
+// ✅ Upload endpoint – ab Cloudinary te save hunda hai (permanent storage)
+app.post('/upload/image', async (req, res) => {
   if (!req.files || !req.files.image) {
     return res.status(400).json({ success: false, message: 'No image file' });
   }
@@ -43,19 +44,18 @@ app.post('/upload/image', (req, res) => {
   if (image.size > 5 * 1024 * 1024) {
     return res.status(400).json({ success: false, message: 'Max 5MB' });
   }
-  const ext = path.extname(image.name);
-  const fileName = `product_${Date.now()}${ext}`;
-  const uploadPath = path.join(imagesDir, fileName);
-  
-  image.mv(uploadPath, (err) => {
-    if (err) {
-      console.error('Upload error:', err);
-      return res.status(500).json({ success: false, message: 'Save failed' });
-    }
-    // Return absolute URL (frontend will use it directly)
-    const imageUrl = `${req.protocol}://${req.get('host')}/images/${fileName}`;
-    res.json({ success: true, url: imageUrl });
-  });
+
+  try {
+    const base64 = `data:${image.mimetype};base64,${image.data.toString('base64')}`;
+    const result = await cloudinary.uploader.upload(base64, {
+      folder: 'prime-interior-products',
+    });
+
+    res.json({ success: true, url: result.secure_url });
+  } catch (err) {
+    console.error('Cloudinary upload error:', err);
+    res.status(500).json({ success: false, message: 'Cloudinary upload failed' });
+  }
 });
 
 const PORT = process.env.PORT || 5555;
