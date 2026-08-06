@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, User, Heart, ShoppingBag, ChevronDown, LogOut, ArrowLeft, Menu, X, Package, UserCircle } from 'lucide-react';
+import { Search, User, Heart, ShoppingBag, ChevronDown, LogOut, ArrowLeft, Menu, X, Package, UserCircle, ShieldCheck } from 'lucide-react';
 import './Navbar.css';
 import SearchModal from '../../pages/SearchModal';
 import CartSidebar from '../../pages/CartSidebar';
 
 import { WishlistContext } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
+
+// ✅ Admin panel da live URL — jekar redeploy naal badle, sirf eh line update karo
+const ADMIN_PANEL_URL = 'https://prime-interior-admin.vercel.app';
+const ADMIN_EMAIL     = 'primeinterior101@gmail.com';
 
 export const Navbar = () => {
     const navigate  = useNavigate();
@@ -29,6 +33,9 @@ export const Navbar = () => {
 
     // ✅ isLoggedIn — user state ton check karo
     const isLoggedIn = !!user;
+
+    // ✅ Sirf admin email wale user layi hi Admin Panel button dikhao
+    const isAdmin = isLoggedIn && (user.email || '').trim().toLowerCase() === ADMIN_EMAIL;
 
     // ── LocalStorage Sync ──
     useEffect(() => {
@@ -88,6 +95,19 @@ export const Navbar = () => {
     const handleWishlistClick = () => {
         if (!isLoggedIn) { navigate('/login'); return; }
         navigate('/wishlist');
+    };
+
+    // ── Admin Panel click — auth data URL param ch bhej ke naveen tab ch admin site kholo ──
+    const handleAdminPanelClick = () => {
+        const authData = {
+            email:     user.email     || '',
+            role:      user.role      || 'admin',
+            firstName: user.firstName || '',
+            lastName:  user.lastName  || '',
+        };
+        const encoded = encodeURIComponent(JSON.stringify(authData));
+        window.open(`${ADMIN_PANEL_URL}/?auth=${encoded}`, '_blank');
+        setUserDropdown(false);
     };
 
     const getUserInitials = () => {
@@ -239,6 +259,15 @@ export const Navbar = () => {
                                         <Package size={16} />
                                         <span>My Orders</span>
                                     </button>
+
+                                    {/* ✅ Sirf admin email wale user nu hi eh button dikhega */}
+                                    {isAdmin && (
+                                        <button className="ud-item" onClick={handleAdminPanelClick}>
+                                            <ShieldCheck size={16} />
+                                            <span>Admin Panel</span>
+                                        </button>
+                                    )}
+
                                     <div className="ud-divider" />
                                     <button className="ud-item ud-logout" onClick={handleLogout}>
                                         <LogOut size={16} />
@@ -311,6 +340,9 @@ export const Navbar = () => {
                         <>
                             <li onClick={() => { navigate('/profile');   setMenuOpen(false); }}>My Profile</li>
                             <li onClick={() => { navigate('/my-orders'); setMenuOpen(false); }}>My Orders</li>
+                            {isAdmin && (
+                                <li onClick={() => { handleAdminPanelClick(); setMenuOpen(false); }}>Admin Panel</li>
+                            )}
                             <li onClick={() => { handleLogout(); setMenuOpen(false); }}>Logout</li>
                         </>
                     ) : (
